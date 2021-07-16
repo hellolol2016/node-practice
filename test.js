@@ -1,7 +1,24 @@
-var http = require('http')
-var uc = require('upper-case')
-http.createServer(function(req, res){
-    res.writeHead(200, {'Content-Type': 'text/html'})
-    res.write(uc.upperCase("Hello World!"));
-    res.end();
-}).listen(8080);
+var nodemailer = require('nodemailer');
+
+var transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: 'denniswang812@gmail.com',
+    pass: '3751978-Ab'
+  }
+});
+
+var mailOptions = {
+  from: 'denniswang812@gmail.com',
+  to: 'dennisthederp812@gmail.com',
+  subject: 'Sending Email using Node.js',
+  text: 'That was easy!'
+};
+
+transporter.sendMail(mailOptions, function(error, info){
+  if (error) {
+    console.log(error);
+  } else {
+    console.log('Email sent: ' + info.response);
+  }
+});
